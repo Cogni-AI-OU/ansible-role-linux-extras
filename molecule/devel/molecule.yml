@@ -11,15 +11,15 @@ lint: |
 # platform, so generic names such as `debian-latest` collide with concurrent
 # Molecule runs of other roles or scenarios.
 platforms:
-  - name: template-devel-alpine-latest
+  - name: linux-extras-devel-alpine-latest
     image: i386/alpine:latest
-  - name: template-devel-debian-latest
+  - name: linux-extras-devel-debian-latest
     image: debian:latest
-  - name: template-devel-ubuntu-jammy
+  - name: linux-extras-devel-ubuntu-jammy
     image: ubuntu:jammy
-  - name: template-devel-ubuntu-noble
+  - name: linux-extras-devel-ubuntu-noble
     image: ubuntu:noble
-  - name: template-devel-ubuntu-latest
+  - name: linux-extras-devel-ubuntu-latest
     image: ubuntu:latest
 provisioner:
   config_options:
