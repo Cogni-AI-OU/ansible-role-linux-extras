@@ -46,7 +46,7 @@
 
   // Or use a Dockerfile or Docker Compose file. More info: https://containers.dev/guide/dockerfile
   "image": "mcr.microsoft.com/devcontainers/base:jammy",
-  "name": "ansible-role-template",
+  "name": "ansible-role-linux-extras",
 
   // Install dependencies via eget and the project's Python tooling.
   // @see: <https://github.com/zyedidia/eget>

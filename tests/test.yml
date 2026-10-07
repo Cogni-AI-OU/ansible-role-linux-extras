@@ -1,6 +1,6 @@
 ---
-- name: Run template role
+- name: Run linux-extras role
   hosts: localhost
   remote_user: root
   roles:
-    - cogni-ai.template
+    - cogni-ai.linux_extras
