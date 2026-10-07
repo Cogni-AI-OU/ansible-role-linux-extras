@@ -1,2 +1,31 @@
 ---
-...
+- name: Verify swap files
+  when:
+    - linux_extras_swapfile_enabled | bool
+    - ansible_facts['system'] | default('Linux') == 'Linux'
+  block:
+    - name: Check swap files exist
+      ansible.builtin.stat:
+        path: '{{ item.path }}'
+      loop: '{{ linux_extras_swapfile_files }}'
+      loop_control:
+        label: '{{ item.path }}'
+      register: linux_extras_swapfile_verify_stat
+    - name: Assert swap files were created
+      ansible.builtin.assert:
+        that:
+          - item.stat.exists
+          - item.stat.size > 0
+        fail_msg: 'Swap file {{ item.item.path }} was not created'
+        success_msg: 'Swap file {{ item.item.path }} exists'
+      loop: '{{ linux_extras_swapfile_verify_stat.results }}'
+      loop_control:
+        label: '{{ item.item.path }}'
+    - name: Assert swap entries are in /etc/fstab
+      ansible.builtin.command:
+        cmd: grep -F '{{ item.path }} none swap sw 0 0' /etc/fstab
+      loop: '{{ linux_extras_swapfile_files }}'
+      loop_control:
+        label: '{{ item.path }}'
+      changed_when: false
+      when: linux_extras_swapfile_fstab | default(true) | bool

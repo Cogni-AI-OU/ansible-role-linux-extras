@@ -1,2 +1,12 @@
 ---
-...
+# Swap file management (Linux only).
+# Activate the swap files with `swapon`. Requires CAP_SYS_ADMIN, so keep this
+# disabled inside unprivileged containers.
+linux_extras_swapfile_activate: true
+# Enable creation and activation of swap files. Disabled by default.
+linux_extras_swapfile_enabled: false
+# Swap files to create. Each entry requires a `path` and a `size` accepted by
+# `fallocate` (for example '2G' or '512M').
+linux_extras_swapfile_files: []
+# Persist the swap files by adding entries to /etc/fstab.
+linux_extras_swapfile_fstab: true

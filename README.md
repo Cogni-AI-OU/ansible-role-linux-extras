@@ -43,6 +43,32 @@ ansible-galaxy install git+https://github.com/Cogni-AI-OU/ansible-role-linux-ext
 For available variables,
 check [`defaults/main.yml`](defaults/main.yml).
 
+### Swap files
+
+Swap file management is opt-in and Linux-only. Enable it with
+`linux_extras_swapfile_enabled` and list the files to create in
+`linux_extras_swapfile_files`.
+
+| Variable | Default | Description |
+| --- | --- | --- |
+| `linux_extras_swapfile_enabled` | `false` | Create and manage the swap files. |
+| `linux_extras_swapfile_files` | `[]` | Swap files to create (`path` and `size`). |
+| `linux_extras_swapfile_activate` | `true` | Activate with `swapon` (needs `CAP_SYS_ADMIN`). |
+| `linux_extras_swapfile_fstab` | `true` | Persist the swap files in `/etc/fstab`. |
+
+Example:
+
+```yaml
+linux_extras_swapfile_enabled: true
+linux_extras_swapfile_files:
+  - path: /swapfile
+    size: 2G
+```
+
+Note: existing swap files are left untouched, so changing `size` has no
+effect on a file that already exists. To resize, deactivate (`swapoff`) and
+remove the file first, then re-run the role.
+
 ## Testing
 
 ### Docker

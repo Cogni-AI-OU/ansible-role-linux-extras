@@ -54,9 +54,18 @@ provisioner:
     group_vars:
       all:
         ansible_python_interpreter: auto_silent
+        # Exercise the swap file tasks. Activation is disabled because
+        # unprivileged containers lack CAP_SYS_ADMIN for `swapon`.
+        linux_extras_swapfile_activate: false
+        linux_extras_swapfile_enabled: true
+        linux_extras_swapfile_files:
+          - path: /var/cache/swapfile01
+            size: 32M
     host_vars:
       linux-extras-default-nixos-latest:
         ansible_python_interpreter: /root/.nix-profile/bin/python3
+        # NixOS manages swap declaratively, so skip the swap file tasks.
+        linux_extras_swapfile_enabled: false
   ssh_connection:
     pipelining: true
   name: ansible

@@ -1,4 +1,13 @@
 ---
+- name: Manage swap files
+  ansible.builtin.include_tasks:
+    apply:
+      tags: linux-extras-swapfile
+    file: swapfile.yml
+  tags: linux-extras-swapfile
+  when:
+    - linux_extras_swapfile_enabled | bool
+    - ansible_facts['system'] | default('Linux') == 'Linux'
 - name: Verify installation
   ansible.builtin.include_tasks:
     apply:

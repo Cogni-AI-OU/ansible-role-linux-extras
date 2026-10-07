@@ -1,6 +1,6 @@
 ---
 - name: Verify
   hosts: all
-  vars_files:
-    - ../../defaults/main.yml
   tasks:
+    - name: Run role verification tasks
+      ansible.builtin.include_tasks: ../../tasks/verify.yml
